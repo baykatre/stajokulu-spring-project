@@ -1,16 +1,12 @@
-package com.stajokulu.dto;
+package com.stajokulu.shipment.dto;
 
 import com.stajokulu.shipment.Shipment;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 @Getter
 @Setter
-public class PackageDto extends Shipment {
+public class PackageDto extends ShipmentDto {
 
     private Integer weight;
 }

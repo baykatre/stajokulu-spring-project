@@ -1,17 +1,14 @@
-package com.stajokulu.dto;
+package com.stajokulu.shipment.dto;
 
 import com.stajokulu.shipment.Shipment;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @Getter
 @Setter
-public class BagDto extends Shipment {
+public class BagDto extends ShipmentDto {
 
     private List<PackageDto> packageDtoList;
 }

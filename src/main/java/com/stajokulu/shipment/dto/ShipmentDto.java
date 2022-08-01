@@ -1,11 +1,7 @@
-package com.stajokulu.dto;
+package com.stajokulu.shipment.dto;
 
-import com.stajokulu.shipment.ShipmentStatus;
-import com.stajokulu.shipment.ShipmentStatusTypeConverter;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Getter
 @Setter

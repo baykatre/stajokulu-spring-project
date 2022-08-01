@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class PickDownOutput {
+public class PickDownModel {
 
     private Vehicle vehicle;
 
