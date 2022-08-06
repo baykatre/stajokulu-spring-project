@@ -28,5 +28,8 @@ INSERT INTO BAG_PACKAGE_LIST (bag_barcode, package_list_barcode) values ('C72579
 INSERT INTO BAG_PACKAGE_LIST (bag_barcode, package_list_barcode) values ('C725800', 'P9988000128');
 INSERT INTO BAG_PACKAGE_LIST (bag_barcode, package_list_barcode) values ('C725800', 'P9988000129');
 
+update package set bag_barcode = 'C725799' where barcode in ('P8988000122', 'P8988000126');
+update package set bag_barcode = 'C725800' where barcode in ('P9988000128', 'P9988000129');
+
 update package set status = 'LIB' where barcode in ('P8988000122', 'P8988000126', 'P9988000128', 'P9988000129')
 

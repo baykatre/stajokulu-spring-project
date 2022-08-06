@@ -50,4 +50,25 @@ public class ShipmentService {
 
         return bagRepository.findById(barcode).orElse(null);
     }
+
+    public Shipment getShipment(String barcode){
+        Package pkg = packageRepository.findById(barcode).orElse(null);
+        Bag bag = bagRepository.findById(barcode).orElse(null);
+
+        if(Objects.isNull(pkg) && Objects.isNull(bag)){
+            throw new RuntimeException("Barkod bulunamadı!");
+        }
+
+        return Objects.nonNull(pkg) ? pkg : bag; //ternary
+    }
+
+    public void save(Shipment shipment) {
+
+        if(shipment instanceof Package){
+            packageRepository.save((Package) shipment);
+            return;
+        }
+
+        bagRepository.save((Bag) shipment);
+    }
 }

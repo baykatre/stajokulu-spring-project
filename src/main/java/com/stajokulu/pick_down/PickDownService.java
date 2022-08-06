@@ -1,18 +1,60 @@
 package com.stajokulu.pick_down;
 
-import com.stajokulu.shipment.ShipmentService;
-import com.stajokulu.shipment.ShipmentStatus;
+import com.stajokulu.delivery_point.DeliveryPoint;
+import com.stajokulu.shipment.*;
+import com.stajokulu.shipment.Package;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class PickDownService {
 
-    private ShipmentService shipmentService;
+    private final ShipmentService shipmentService;
 
     public PickDownModel pickDown(PickDownModel pickDownModel) {
-        return null;
+
+        Map<DeliveryPoint, List<Shipment>> deliveryPointDeliveriesMap = pickDownModel.getDeliveryPointDeliveriesMap();
+
+        deliveryPointDeliveriesMap.forEach(
+                (deliveryPoint, shipments) -> {
+                    shipments.forEach(shipment -> {
+                        DeliveryPoint shipmentDeliveryPoint = shipment.getDeliveryPoint();
+                        if(deliveryPoint.equals(shipmentDeliveryPoint)
+                                && isAllowedDeliveryPoint(deliveryPoint, shipment)){
+                            shipment.setStatus(ShipmentStatus.UNLOADED);
+                        }
+                        else {
+                            shipment.setStatus(ShipmentStatus.LOADED);
+                        }
+                        shipmentService.save(shipment);
+                    });
+                }
+        );
+        return pickDownModel;
+    }
+
+    private boolean isAllowedDeliveryPoint(DeliveryPoint deliveryPoint, Shipment shipment) {
+
+        ShipmentType supportedShipmentType = deliveryPoint.getSupportedShipmentType();
+        if(Objects.isNull(supportedShipmentType)){
+            return true;
+        }
+
+        if(ShipmentType.BAG.equals(supportedShipmentType) && (shipment instanceof Bag
+                || (shipment instanceof Package
+                    && Objects.nonNull(((Package) shipment).getBag())))){
+            return true;
+        }
+
+        if(ShipmentType.PACKAGE.equals(supportedShipmentType) && shipment instanceof Package){
+            return true;
+        }
+
+        return false;
     }
 }
