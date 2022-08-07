@@ -1,6 +1,7 @@
 package com.stajokulu.pick_down;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,9 @@ public class PickDownController {
     private final PickDownService pickDownService;
 
     @PostMapping
-    public PickDownModel pickDown(@RequestBody PickDownModel pickDownModel){
+    public ResponseEntity<PickDownModel> pickDown(@RequestBody PickDownModel pickDownModel){
 
-        return pickDownService.pickDown(pickDownModel);
+        return ResponseEntity.ok(pickDownService.pickDown(pickDownModel));
     }
 
 

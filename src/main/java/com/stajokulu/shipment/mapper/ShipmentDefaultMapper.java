@@ -10,6 +10,7 @@ import com.stajokulu.shipment.dto.ShipmentDto;
 import java.util.Arrays;
 import java.util.Objects;
 
+@Deprecated
 public class ShipmentDefaultMapper {
 
     public static Bag convertToBag(BagDto bagDto) {

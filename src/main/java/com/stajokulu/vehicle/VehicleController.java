@@ -1,6 +1,7 @@
 package com.stajokulu.vehicle;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,14 +14,16 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @GetMapping("/vehicle/{plate}")
-    public Vehicle getVehicle(String plate){
+    public ResponseEntity<Vehicle> getVehicle(String plate){
 
-        return vehicleService.getVehicle(plate);
+        Vehicle vehicle = vehicleService.getVehicle(plate);
+        return ResponseEntity.ok(vehicle);
     }
 
     @PostMapping("/vehicle")
-    public Vehicle getVehicle(@RequestBody Vehicle vehicle){
+    public ResponseEntity<Vehicle> getVehicle(@RequestBody Vehicle vehicle){
 
-        return vehicleService.saveVehicle(vehicle);
+        Vehicle savedVehicle = vehicleService.saveVehicle(vehicle);
+        return ResponseEntity.ok(savedVehicle);
     }
 }

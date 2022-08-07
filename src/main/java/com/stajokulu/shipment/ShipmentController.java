@@ -4,6 +4,7 @@ import com.stajokulu.pick_down.PickDownModel;
 import com.stajokulu.shipment.dto.BagDto;
 import com.stajokulu.shipment.dto.PackageDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,20 +21,23 @@ public class ShipmentController {
     }
 
     @PostMapping("/bag")
-    public Bag createBag(@RequestBody BagDto bag){
+    public ResponseEntity<Bag> createBag(@RequestBody BagDto bagDto){
 
-        return shipmentService.createBag(bag);
+        Bag bag = shipmentService.createBag(bagDto);
+        return ResponseEntity.ok(bag);
     }
 
     @GetMapping("/bag/{barcode}")
-    public Bag getBagByBarcode(@PathVariable String barcode){
+    public ResponseEntity<Bag> getBagByBarcode(@PathVariable String barcode){
 
-        return shipmentService.getBag(barcode);
+        Bag bag = shipmentService.getBag(barcode);
+        return ResponseEntity.ok(bag);
     }
 
     @PostMapping("/assign/{packageBarcode}/{bagBarcode}")
-    public Bag assignPackage(@PathVariable String packageBarcode, @PathVariable String bagBarcode) throws Exception {
+    public ResponseEntity<Bag> assignPackage(@PathVariable String packageBarcode, @PathVariable String bagBarcode) {
 
-        return shipmentService.assignPackage(packageBarcode, bagBarcode);
+        Bag bag = shipmentService.assignPackage(packageBarcode, bagBarcode);
+        return ResponseEntity.ok(bag);
     }
 }

@@ -3,15 +3,10 @@ package com.stajokulu.tools;
 import com.stajokulu.history.History;
 import com.stajokulu.history.HistoryService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import javax.xml.ws.Response;
-import java.util.Objects;
 
 @Component
 @Aspect
